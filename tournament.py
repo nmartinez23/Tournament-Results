@@ -59,3 +59,40 @@ def registerPlayer(name):
     db_cursor.execute(query, (name,))
     conn.commit()
     conn.close()
+
+
+def playerStandings():
+    """Returns a list of the players and their win records, sorted by wins.
+
+    The first entry in the list should be the player in first place, or a
+    player tied for first place if there is currently a tie.
+
+    Returns:
+      A list of tuples, each of which contains (id, name, wins, matches):
+        id: the player's unique id (assigned by the database)
+        name: the player's full name (as registered)
+        wins: the number of matches the player has won
+        matches: the number of matches the player has played
+    """
+    conn = connect()
+    db_cursor = conn.cursor()
+    query = "SELECT * FROM standings;"
+    db_cursor.execute(query)
+    results = db_cursor.fetchall()
+    conn.close()
+    return results
+
+
+def reportMatch(winner, loser):
+    """Records the outcome of a single match between two players.
+
+    Args:
+      winner:  the id number of the player who won
+      loser:  the id number of the player who lost
+    """
+    conn = connect()
+    db_cursor = conn.cursor()
+    db_cursor.execute("INSERT INTO matches (winner, loser)" +
+                      "VALUES (%s, %s)", (winner, loser,))
+    conn.commit()
+    conn.close()
