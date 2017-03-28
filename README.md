@@ -1,6 +1,7 @@
 # Tournament Results Project
 
-## Swiss-system style tournament app built with Python, PostgreSQL, Unit Testing, Vagrant and Virtual Box.
+## Swiss-system style tournament
+## App built with Python, PostgreSQL, Unit Testing, Vagrant and Virtual Box.
 
 ## Features
 
