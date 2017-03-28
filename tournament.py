@@ -96,3 +96,23 @@ def reportMatch(winner, loser):
                       "VALUES (%s, %s)", (winner, loser,))
     conn.commit()
     conn.close()
+
+
+def swissPairings():
+    """Returns a list of pairs of players for the next round of a match.
+
+    Assuming that there are an even number of players registered, each player
+    appears exactly once in the pairings.  Each player is paired with another
+    player with an equal or nearly-equal win record, that is, a player adjacent
+    to him or her in the standings.
+
+    Returns:
+      A list of tuples, each of which contains (id1, name1, id2, name2)
+        id1: the first player's unique id
+        name1: the first player's name
+        id2: the second player's unique id
+        name2: the second player's name
+    """
+    standings = playerStandings()
+    return [(standings[p - 1][0], standings[p - 1][1], standings[p][0],
+            standings[p][1]) for p in range(1, len(standings), 2)]
